@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="games.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar">
+        <div class="nav-brand">Forever Yours ❤️</div>
+        <button class="music-btn" id="musicBtn" aria-label="Toggle music">
+            <span class="music-icon">🎵</span>
+            <span class="music-text">Play Music</span>
+        </button>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero" id="hero">
+        <canvas id="heroCanvas"></canvas>
+        <div class="hero-particles" id="heroParticles"></div>
+        <div class="floating-hearts" id="floatingHearts"></div>
+
+        <div class="hero-content">
+            <div class="hero-heart">❤️</div>
+            <h1 class="hero-title">Happy Birthday</h1>
+            <h2 class="hero-subtitle">My Love</h2>
+            <p class="hero-message">
+                Today the universe smiles because you were born.<br>
+                You are my everything, my forever, my home.
+            </p>
+            <div class="hero-date">🌸 April 19 🌸</div>
+
+            <!-- Surprise button — lock state managed by JS -->
+            <div class="surprise-wrap">
+                <button class="surprise-btn" id="surpriseBtn">
+                    ✨ Open Your Surprise ✨
+                </button>
+                <!-- Shown only when locked -->
+                <div class="lock-info" id="lockInfo">
+                    <span class="lock-icon-sm">🔒</span>
+                    <span id="lockCountdownText">Unlocks April 19 at midnight</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== COUNTDOWN SECTION (always visible) ========== -->
+    <section class="countdown-section" id="countdown">
+        <!-- Particle canvas just for this section -->
+        <canvas class="cd-canvas" id="cdCanvas"></canvas>
+
+        <div class="section-container cd-container">
+
+            <!-- Animated badge -->
+            <div class="cd-badge">
+                <span class="cd-badge-dot"></span>
+                Something Magical Is Coming
+                <span class="cd-badge-dot"></span>
+            </div>
+
+            <!-- Dramatic headline -->
+            <h2 class="cd-headline">
+                <span class="cd-line-top">The Big Day</span>
+                <span class="cd-line-mid">April&nbsp;19</span>
+                <span class="cd-line-bot">is almost here</span>
+            </h2>
+
+            <p class="cd-sub">
+                She was born to light up this world —<br>
+                and every second brings her special day closer ❤️
+            </p>
+
+            <!-- Decorative ring behind timer -->
+            <div class="cd-ring-wrap">
+                <div class="cd-ring cd-ring-1"></div>
+                <div class="cd-ring cd-ring-2"></div>
+                <div class="cd-ring cd-ring-3"></div>
+
+                <div class="countdown-timer" id="countdownTimer">
+                    <div class="time-unit">
+                        <div class="time-value" id="days">00</div>
+                        <div class="time-label">Days</div>
+                    </div>
+                    <div class="time-sep">:</div>
+                    <div class="time-unit">
+                        <div class="time-value" id="hours">00</div>
+                        <div class="time-label">Hours</div>
+                    </div>
+                    <div class="time-sep">:</div>
+                    <div class="time-unit">
+                        <div class="time-value" id="minutes">00</div>
+                        <div class="time-label">Minutes</div>
+                    </div>
+                    <div class="time-sep">:</div>
+                    <div class="time-unit">
+                        <div class="time-value" id="seconds">00</div>
+                        <div class="time-label">Seconds</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rotating hype message -->
+            <div class="cd-hype-wrap">
+                <p class="cd-hype" id="cdHype">✨ Every second brings something extraordinary closer to you ✨</p>
+            </div>
+
+            <!-- Unlock hint -->
+            <div class="cd-unlock-hint" id="cdUnlockHint">
+                <span>🔒</span>
+                <span>The full experience unlocks on April 19 at midnight</span>
+            </div>
+
+            <!-- Birthday reveal (shown on the day) -->
+            <div class="birthday-now" id="birthdayNow">
+                <div class="birthday-now-icon">🎂</div>
+                <h3>Happy Birthday!!! 🎉</h3>
+                <p>Today is your magical day — may it be filled with love, laughter, and endless joy!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== GAMES SECTION ========== -->
+    <section class="games-section lockable" id="games">
+        <div class="lock-veil">
+            <div class="veil-box">
+                <div class="veil-rings"><div class="vr vr1"></div><div class="vr vr2"></div></div>
+                <span class="veil-emoji">🎮</span>
+                <h3>Fun &amp; Love Games</h3>
+                <p>Games unlock on April 19 ✨</p>
+                <div class="veil-sparks" aria-hidden="true"></div>
+            </div>
+        </div>
+        <div class="section-container">
+            <h2 class="section-title">Fun &amp; Love Games 🎮</h2>
+            <p class="section-subtitle">Play together on your special day ✨</p>
+
+            <!-- Game selector tabs -->
+            <div class="games-tabs">
+                <button class="gtab active" data-game="memory">🃏 Memory Match</button>
+                <button class="gtab" data-game="wheel">🎡 Spin the Wheel</button>
+                <button class="gtab" data-game="scratch">🎁 Scratch Card</button>
+            </div>
+
+            <!-- ── MEMORY MATCH ── -->
+            <div class="gpanel active" id="gpanel-memory">
+                <div class="mem-stats">
+                    <span>Moves: <strong id="memMoves">0</strong></span>
+                    <button class="mem-reset" id="memReset">↺ Reset</button>
+                    <span>Time: <strong id="memTimer">0:00</strong></span>
+                </div>
+                <div class="mem-grid" id="memGrid"></div>
+                <p class="mem-hint">Match all the pairs to win 💕</p>
+            </div>
+
+            <!-- ── SPIN THE WHEEL ── -->
+            <div class="gpanel" id="gpanel-wheel">
+                <div class="wheel-wrap">
+                    <div class="wheel-arrow">▼</div>
+                    <canvas class="wheel-canvas" id="wheelCanvas" width="320" height="320"></canvas>
+                </div>
+                <button class="spin-btn" id="spinBtn">🎡 Spin the Wheel!</button>
+                <div class="wheel-result" id="wheelResult"></div>
+            </div>
+
+            <!-- ── SCRATCH CARD ── -->
+            <div class="gpanel" id="gpanel-scratch">
+                <div class="scratch-wrap">
+                    <p class="scratch-hint">Scratch to reveal a hidden love message 💕</p>
+                    <div class="scratch-container">
+                        <div class="scratch-reveal" id="scratchReveal">
+                            <span class="sr-icon">💌</span>
+                            <p class="sr-msg" id="srMsg"></p>
+                        </div>
+                        <canvas class="scratch-canvas" id="scratchCanvas" width="320" height="200"></canvas>
+                    </div>
+                    <div class="scratch-progress">
+                        <div class="scratch-bar"><div class="scratch-fill" id="scratchFill"></div></div>
+                        <span id="scratchPct">0% scratched</span>
+                    </div>
+                    <button class="scratch-new" id="scratchNew">🎁 New Card</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast notification for game wins -->
+    <div class="game-toast" id="gameToast">
+        <h3></h3>
+        <p></p>
+    </div>
+
+    <!-- ========== PHOTO GALLERY ========== -->
+    <section class="gallery-section lockable" id="gallery">
+        <!-- Lock veil — hidden on April 19 -->
+        <div class="lock-veil">
+            <div class="veil-box">
+                <div class="veil-rings"><div class="vr vr1"></div><div class="vr vr2"></div></div>
+                <span class="veil-emoji">📸</span>
+                <h3>Our Beautiful Moments</h3>
+                <p>Every photo unlocks on April 19 ✨</p>
+                <div class="veil-sparks" aria-hidden="true"></div>
+            </div>
+        </div>
+        <div class="section-container">
+            <h2 class="section-title">Our Beautiful Moments</h2>
+            <p class="section-subtitle">Every picture tells our story ❤️</p>
+
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev-btn" id="prevBtn" aria-label="Previous photo">&#10094;</button>
+
+                <div class="carousel-stage" id="carouselStage">
+                    <!-- Slides injected by JS from photoData array in script.js -->
+                </div>
+
+                <button class="carousel-btn next-btn" id="nextBtn" aria-label="Next photo">&#10095;</button>
+            </div>
+
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+    </section>
+
+    <!-- ========== LOVE STORY TIMELINE ========== -->
+    <section class="timeline-section lockable" id="timeline">
+        <div class="lock-veil">
+            <div class="veil-box">
+                <div class="veil-rings"><div class="vr vr1"></div><div class="vr vr2"></div></div>
+                <span class="veil-emoji">💫</span>
+                <h3>Our Love Story</h3>
+                <p>Every chapter reveals on April 19 ❤️</p>
+                <div class="veil-sparks" aria-hidden="true"></div>
+            </div>
+        </div>
+        <div class="section-container">
+            <h2 class="section-title">Our Love Story</h2>
+            <p class="section-subtitle">The chapters of us ✨</p>
+
+            <div class="timeline">
+
+                <div class="tl-item tl-left">
+                    <div class="tl-card">
+                        <span class="tl-icon">💫</span>
+                        <h3>The Beginning</h3>
+                        <span class="tl-date">Chapter One</span>
+                        <p>The day our paths crossed and the universe knew we were meant to meet. Every detail of that moment is etched in my heart forever.</p>
+                    </div>
+                </div>
+
+                <div class="tl-item tl-right">
+                    <div class="tl-card">
+                        <span class="tl-icon">🌹</span>
+                        <h3>First Date</h3>
+                        <span class="tl-date">Chapter Two</span>
+                        <p>Butterflies, laughter, and the feeling that time stood still. I knew then that you were someone extraordinary in this world.</p>
+                    </div>
+                </div>
+
+                <div class="tl-item tl-left">
+                    <div class="tl-card">
+                        <span class="tl-icon">❤️</span>
+                        <h3>Falling in Love</h3>
+                        <span class="tl-date">Chapter Three</span>
+                        <p>The moment I realized I was completely, irrevocably in love with you. You had captured my heart without even trying.</p>
+                    </div>
+                </div>
+
+                <div class="tl-item tl-right">
+                    <div class="tl-card">
+                        <span class="tl-icon">🌟</span>
+                        <h3>Adventures Together</h3>
+                        <span class="tl-date">Chapter Four</span>
+                        <p>Every adventure is better with you by my side. From small moments to grand experiences, you make everything magical.</p>
+                    </div>
+                </div>
+
+                <div class="tl-item tl-left">
+                    <div class="tl-card">
+                        <span class="tl-icon">🎂</span>
+                        <h3>Your Special Day</h3>
+                        <span class="tl-date">April 19 ❤️</span>
+                        <p>Today we celebrate the day the world became a more beautiful place — the day you were born. Happy Birthday, my love!</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LOVE LETTER ========== -->
+    <section class="letter-section lockable" id="letter">
+        <div class="lock-veil">
+            <div class="veil-box">
+                <div class="veil-rings"><div class="vr vr1"></div><div class="vr vr2"></div></div>
+                <span class="veil-emoji">💌</span>
+                <h3>A Letter From My Heart</h3>
+                <p>Words written just for you — opens April 19 🌸</p>
+                <div class="veil-sparks" aria-hidden="true"></div>
+            </div>
+        </div>
+        <div class="section-container">
+            <div class="love-letter">
+                <div class="letter-header">
+                    <span class="letter-icon">💌</span>
+                    <h2>A Letter From My Heart</h2>
+                </div>
+                <div class="letter-body">
+                    <p>My Dearest Love,</p>
+                    <br>
+                    <p>On this special day, I want you to know that meeting you was the greatest gift life has ever given me. You are the reason I smile every morning, the reason I believe in magic, and the reason every ordinary day feels like an adventure worth living.</p>
+                    <br>
+                    <p>You are beautiful in ways that go far beyond what eyes can see. Your laughter is my favorite sound, your smile is my safe place, and your love is the greatest treasure I have ever known.</p>
+                    <br>
+                    <p>Happy Birthday to the most wonderful person in my world. May this year bring you everything your heart desires, and may you always know how deeply and completely you are loved — today, tomorrow, and always.</p>
+                    <br>
+                    <p>Forever yours,</p>
+                    <p class="letter-sig">Your Love ❤️</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer lockable" id="footer">
+        <div class="footer-hearts">❤️ 💕 ❤️ 💕 ❤️</div>
+        <p>Made with infinite love, just for you</p>
+        <p class="footer-date">April 19 🌸 Your Day</p>
+    </footer>
+
+    <!-- ========== SURPRISE EXPERIENCE (full-screen 3D) ========== -->
+    <div class="sx-overlay" id="sxOverlay" role="dialog" aria-modal="true" aria-label="Birthday surprise">
+
+        <!-- Three.js canvas fills the whole overlay as bg -->
+        <canvas class="sx-bg-canvas" id="sxBgCanvas"></canvas>
+        <!-- CSS confetti / floating hearts layer -->
+        <div class="sx-bg-hearts" id="sxBgHearts"></div>
+
+        <!-- Main card -->
+        <div class="sx-card" id="sxCard">
+
+            <!-- Ribbon banner at top of card -->
+            <div class="sx-ribbon" aria-hidden="true">✨ Happy Birthday ✨</div>
+
+            <button class="sx-close" id="sxClose" aria-label="Close">✕</button>
+
+            <!-- SPLIT LAYOUT -->
+            <div class="sx-split">
+
+                <!-- LEFT — 3D heart canvas -->
+                <div class="sx-left">
+                    <canvas class="sx-heart-canvas" id="sxHeartCanvas"></canvas>
+                    <div class="sx-left-glow"></div>
+                    <p class="sx-left-label">Happy Birthday<br><span>My Love ❤️</span></p>
+                </div>
+
+                <!-- RIGHT — tabs + content -->
+                <div class="sx-right">
+
+                    <!-- Tab nav -->
+                    <div class="sx-tab-nav" id="sxTabNav">
+                        <button class="sx-tab active" data-tab="message">💌 Message</button>
+                        <button class="sx-tab" data-tab="videos">🎬 Videos</button>
+                        <button class="sx-tab" data-tab="memories">📸 Memories</button>
+                    </div>
+
+                    <!-- ── Message panel ── -->
+                    <div class="sx-panel active" id="panel-message">
+                        <div class="sx-msg-scroll">
+                            <p class="sx-typed" id="sxTyped"></p>
+                            <span class="sx-cursor" id="sxCursor">|</span>
+                        </div>
+                    </div>
+
+                    <!-- ── Videos panel ── -->
+                    <div class="sx-panel" id="panel-videos">
+                        <div class="sx-video-area">
+                            <div class="sx-video-player" id="sxVideoPlayer">
+                                <!-- populated by JS -->
+                            </div>
+                            <div class="sx-video-thumbs" id="sxVideoThumbs"></div>
+                        </div>
+                    </div>
+
+                    <!-- ── Memories (photos) panel ── -->
+                    <div class="sx-panel" id="panel-memories">
+                        <div class="sx-mem-grid" id="sxMemGrid">
+                            <!-- populated by JS from photoData -->
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <button class="sx-cta" id="sxCta">Send My Love ❤️</button>
+
+                </div><!-- /sx-right -->
+            </div><!-- /sx-split -->
+
+        </div><!-- /sx-card -->
+    </div><!-- /sx-overlay -->
+
+    <!-- ========== AUDIO ========== -->
+    <audio id="bgMusic" loop preload="none">
+        <source src="assets/music/background.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
