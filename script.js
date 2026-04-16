@@ -3,7 +3,7 @@
    Line 6 — set to true to test the Surprise right now.
    Set to false before you give her the link!
    ============================================================ */
-const TEST_MODE = false;   // ← CHANGE THIS LINE
+const TEST_MODE = true;   // ← CHANGE THIS LINE
 
 /* ============================================================
    PHOTO DATA — edit captions, add src paths for your images
