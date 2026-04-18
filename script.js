@@ -3,7 +3,7 @@
    Line 6 — set to true to test the Surprise right now.
    Set to false before you give her the link!
    ============================================================ */
-const TEST_MODE = false;   // ← CHANGE THIS LINE true for evrything unlock and false mean every thing lock
+const TEST_MODE = true;   // ← CHANGE THIS LINE true for evrything unlock and false mean every thing lock
 
 /* ============================================================
    PHOTO DATA — edit captions, add src paths for your images
@@ -17,7 +17,7 @@ const photoData = [
     { src: "assets/images/photo4.jpeg", caption: "Adventures together 🌟" },
     { src: "assets/images/photo5.jpeg", caption: "Forever us 💖" },
     { src: "assets/images/photo8.jpeg", caption: "I Love You 💖" },
-    
+
 
 
 ];
@@ -38,7 +38,7 @@ const videoData = [
    ============================================================ */
 function isSurpriseUnlocked() {
     if (TEST_MODE) return true;
-    const now    = new Date();
+    const now = new Date();
     const unlock = new Date(now.getFullYear(), 3, 19, 0, 0, 0); // April 19, 00:00:00
     return now >= unlock;
 }
@@ -58,10 +58,10 @@ function initCanvas2DParticles(canvasId, COUNT) {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    const colors = ["#ff6b9d","#c678dd","#ff9ff3","#ffffff","#ffb3d1"];
+    const colors = ["#ff6b9d", "#c678dd", "#ff9ff3", "#ffffff", "#ffb3d1"];
 
     function resize() {
-        canvas.width  = canvas.offsetWidth  || window.innerWidth;
+        canvas.width = canvas.offsetWidth || window.innerWidth;
         canvas.height = canvas.offsetHeight || window.innerHeight;
     }
     // Defer resize so the browser has finished layout
@@ -69,7 +69,7 @@ function initCanvas2DParticles(canvasId, COUNT) {
     window.addEventListener("resize", resize, { passive: true });
 
     const pts = Array.from({ length: COUNT }, () => ({
-        x: Math.random() * (canvas.width  || window.innerWidth),
+        x: Math.random() * (canvas.width || window.innerWidth),
         y: Math.random() * (canvas.height || window.innerHeight),
         r: Math.random() * 1.6 + 0.4,
         vx: (Math.random() - 0.5) * 0.4,
@@ -88,8 +88,8 @@ function initCanvas2DParticles(canvasId, COUNT) {
             ctx.globalAlpha = p.alpha;
             ctx.fill();
             p.x += p.vx; p.y += p.vy;
-            if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-            if (p.y < 0 || p.y > canvas.height)  p.vy *= -1;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
         });
         ctx.globalAlpha = 1;
     })();
@@ -100,7 +100,7 @@ function initHeroThreeJS() {
 
     try {
         const canvas = document.getElementById("heroCanvas");
-        const scene  = new THREE.Scene();
+        const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 55;
 
@@ -108,25 +108,25 @@ function initHeroThreeJS() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        const COUNT   = window.innerWidth < 600 ? 180 : 350;
-        const pos     = new Float32Array(COUNT * 3);
-        const col     = new Float32Array(COUNT * 3);
+        const COUNT = window.innerWidth < 600 ? 180 : 350;
+        const pos = new Float32Array(COUNT * 3);
+        const col = new Float32Array(COUNT * 3);
         const palette = [
             new THREE.Color(0xff6b9d), new THREE.Color(0xc678dd),
             new THREE.Color(0xff9ff3), new THREE.Color(0xffffff),
         ];
 
         for (let i = 0; i < COUNT; i++) {
-            pos[i*3]   = (Math.random()-.5)*220;
-            pos[i*3+1] = (Math.random()-.5)*220;
-            pos[i*3+2] = (Math.random()-.5)*100;
-            const c = palette[Math.floor(Math.random()*palette.length)];
-            col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
+            pos[i * 3] = (Math.random() - .5) * 220;
+            pos[i * 3 + 1] = (Math.random() - .5) * 220;
+            pos[i * 3 + 2] = (Math.random() - .5) * 100;
+            const c = palette[Math.floor(Math.random() * palette.length)];
+            col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
         }
 
         const geo = new THREE.BufferGeometry();
         geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-        geo.setAttribute("color",    new THREE.BufferAttribute(col, 3));
+        geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
         const points = new THREE.Points(geo, new THREE.PointsMaterial({
             size: 1.4, vertexColors: true, transparent: true, opacity: 0.75,
             blending: THREE.AdditiveBlending, depthWrite: false,
@@ -135,7 +135,7 @@ function initHeroThreeJS() {
 
         let mx = 0, my = 0;
         document.addEventListener("mousemove", e => {
-            mx = (e.clientX / window.innerWidth  - 0.5) * 18;
+            mx = (e.clientX / window.innerWidth - 0.5) * 18;
             my = (e.clientY / window.innerHeight - 0.5) * 18;
         });
 
@@ -185,11 +185,11 @@ function initSxHeartFallback() {
     const canvas = document.getElementById("sxHeartCanvas");
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    canvas.width  = canvas.parentElement.offsetWidth  || 360;
+    canvas.width = canvas.parentElement.offsetWidth || 360;
     canvas.height = canvas.parentElement.offsetHeight || 480;
     const cx = canvas.width / 2, cy = canvas.height / 2;
     let t = 0;
-    const emojis = ["❤️","💕","💖","💗","💫"];
+    const emojis = ["❤️", "💕", "💖", "💗", "💫"];
 
     (function draw() {
         requestAnimationFrame(draw);
@@ -200,7 +200,7 @@ function initSxHeartFallback() {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.shadowColor = "rgba(255,50,100,.7)";
-        ctx.shadowBlur  = 40 + Math.sin(t) * 20;
+        ctx.shadowBlur = 40 + Math.sin(t) * 20;
         ctx.fillText("❤️", cx, cy - 20);
         ctx.shadowBlur = 0;
         // Small orbiting emojis
@@ -208,7 +208,7 @@ function initSxHeartFallback() {
             const a = t * 0.6 + (i / 5) * Math.PI * 2;
             const r = 100 + Math.sin(t + i) * 12;
             ctx.font = "22px serif";
-            ctx.fillText(emojis[i], cx + Math.cos(a)*r, cy - 20 + Math.sin(a)*r*0.55);
+            ctx.fillText(emojis[i], cx + Math.cos(a) * r, cy - 20 + Math.sin(a) * r * 0.55);
         }
     })();
 }
@@ -216,19 +216,19 @@ function initSxHeartFallback() {
 function initSxHeartCanvas() {
     if (typeof THREE === "undefined") { initSxHeartFallback(); return; }
 
-    const canvas    = document.getElementById("sxHeartCanvas");
+    const canvas = document.getElementById("sxHeartCanvas");
     const container = canvas.parentElement;
-    const W = container.offsetWidth  || 380;
+    const W = container.offsetWidth || 380;
     const H = container.offsetHeight || 480;
 
-    const scene  = new THREE.Scene();
+    const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, W / H, 0.1, 100);
     camera.position.z = 4.5;
 
-    if (sxRenderer) { try { sxRenderer.dispose(); } catch(_){} sxRenderer = null; }
+    if (sxRenderer) { try { sxRenderer.dispose(); } catch (_) { } sxRenderer = null; }
     try {
         sxRenderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    } catch(e) {
+    } catch (e) {
         console.warn("WebGL unavailable for surprise canvas:", e.message);
         initSxHeartFallback(); return;
     }
@@ -237,7 +237,7 @@ function initSxHeartCanvas() {
 
     /* Lights */
     scene.add(new THREE.AmbientLight(0x330022, 1.0));
-    const pinkLight   = new THREE.PointLight(0xff4488, 4, 20);
+    const pinkLight = new THREE.PointLight(0xff4488, 4, 20);
     pinkLight.position.set(1.5, 1.5, 4);
     scene.add(pinkLight);
     const purpleLight = new THREE.PointLight(0xaa44ff, 3, 15);
@@ -248,7 +248,7 @@ function initSxHeartCanvas() {
     scene.add(rimLight);
 
     /* Main 3D extruded heart */
-    const shape    = buildHeartShape();
+    const shape = buildHeartShape();
     const extruded = new THREE.ExtrudeGeometry(shape, {
         depth: 0.28, bevelEnabled: true, bevelSegments: 10,
         steps: 2, bevelSize: 0.04, bevelThickness: 0.04,
@@ -256,7 +256,7 @@ function initSxHeartCanvas() {
     extruded.center();
 
     const heartMat = new THREE.MeshPhongMaterial({
-        color:    0xff1155,
+        color: 0xff1155,
         emissive: 0x660022,
         specular: 0xff99cc,
         shininess: 120,
@@ -267,7 +267,7 @@ function initSxHeartCanvas() {
 
     /* Small orbiting mini hearts */
     const miniHearts = [];
-    const miniMat    = new THREE.MeshPhongMaterial({
+    const miniMat = new THREE.MeshPhongMaterial({
         color: 0xff66aa, emissive: 0x440011, transparent: true, opacity: 0.85,
     });
     for (let i = 0; i < 6; i++) {
@@ -278,7 +278,7 @@ function initSxHeartCanvas() {
         mGeo.center();
         const m = new THREE.Mesh(mGeo, miniMat);
         m.scale.set(0.35, 0.35, 0.35);
-        const angle  = (i / 6) * Math.PI * 2;
+        const angle = (i / 6) * Math.PI * 2;
         const radius = 2.2 + (i % 2) * 0.5;
         m.userData = { angle, radius, speed: 0.4 + Math.random() * 0.3, yOff: (Math.random() - 0.5) * 1.2 };
         scene.add(m);
@@ -287,10 +287,10 @@ function initSxHeartCanvas() {
 
     /* Floating particles */
     const pCount = 80;
-    const pPos   = new Float32Array(pCount * 3);
-    const pVel   = [];
+    const pPos = new Float32Array(pCount * 3);
+    const pVel = [];
     for (let i = 0; i < pCount; i++) {
-        pPos[i * 3]     = (Math.random() - 0.5) * 8;
+        pPos[i * 3] = (Math.random() - 0.5) * 8;
         pPos[i * 3 + 1] = (Math.random() - 0.5) * 8;
         pPos[i * 3 + 2] = (Math.random() - 0.5) * 4;
         pVel.push({ vx: (Math.random() - 0.5) * 0.01, vy: Math.random() * 0.012 + 0.004 });
@@ -330,15 +330,15 @@ function initSxHeartCanvas() {
         // Drift particles
         const pos = pGeo.attributes.position.array;
         for (let i = 0; i < pCount; i++) {
-            pos[i * 3]     += pVel[i].vx;
+            pos[i * 3] += pVel[i].vx;
             pos[i * 3 + 1] += pVel[i].vy;
-            if (pos[i * 3 + 1] > 5)  pos[i * 3 + 1] = -5;
+            if (pos[i * 3 + 1] > 5) pos[i * 3 + 1] = -5;
             if (Math.abs(pos[i * 3]) > 5) pVel[i].vx *= -1;
         }
         pGeo.attributes.position.needsUpdate = true;
 
         // Animate lights
-        pinkLight.intensity   = 3.5 + Math.sin(t * 2.1) * 1.2;
+        pinkLight.intensity = 3.5 + Math.sin(t * 2.1) * 1.2;
         purpleLight.intensity = 2.5 + Math.cos(t * 1.7) * 0.8;
 
         sxRenderer.render(scene, camera);
@@ -355,17 +355,17 @@ function stopSxCanvas() {
    ============================================================ */
 function initFloatingHearts() {
     const container = document.getElementById("floatingHearts");
-    const symbols   = ["❤️", "💕", "💗", "💖", "💝", "🌸", "💫", "✨"];
+    const symbols = ["❤️", "💕", "💗", "💖", "💝", "🌸", "💫", "✨"];
 
     function spawn() {
         const el = document.createElement("span");
         el.className = "float-heart";
         el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        el.style.left           = Math.random() * 100 + "%";
-        el.style.fontSize       = (Math.random() * 1.4 + 0.8) + "rem";
-        const dur               = Math.random() * 9 + 7;
+        el.style.left = Math.random() * 100 + "%";
+        el.style.fontSize = (Math.random() * 1.4 + 0.8) + "rem";
+        const dur = Math.random() * 9 + 7;
         el.style.animationDuration = dur + "s";
-        el.style.animationDelay   = (Math.random() * 1.5) + "s";
+        el.style.animationDelay = (Math.random() * 1.5) + "s";
         container.appendChild(el);
         setTimeout(() => el.remove(), (dur + 2) * 1000);
     }
@@ -379,18 +379,18 @@ function initFloatingHearts() {
    ============================================================ */
 function spawnSxHearts() {
     const container = document.getElementById("sxBgHearts");
-    const symbols   = ["❤️", "💕", "💖", "🌸", "✨", "💫"];
+    const symbols = ["❤️", "💕", "💖", "🌸", "✨", "💫"];
 
     function spawn() {
         if (!document.getElementById("sxOverlay").classList.contains("active")) return;
         const el = document.createElement("span");
         el.className = "float-heart";
         el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        el.style.left           = Math.random() * 100 + "%";
-        el.style.fontSize       = (Math.random() + 0.6) + "rem";
-        const dur               = Math.random() * 7 + 5;
+        el.style.left = Math.random() * 100 + "%";
+        el.style.fontSize = (Math.random() + 0.6) + "rem";
+        const dur = Math.random() * 7 + 5;
         el.style.animationDuration = dur + "s";
-        el.style.animationDelay   = "0s";
+        el.style.animationDelay = "0s";
         container.appendChild(el);
         setTimeout(() => el.remove(), (dur + 1) * 1000);
     }
@@ -411,29 +411,29 @@ function initCountdown() {
         return t;
     }
 
-    const timerEl   = document.getElementById("countdownTimer");
-    const bdayEl    = document.getElementById("birthdayNow");
+    const timerEl = document.getElementById("countdownTimer");
+    const bdayEl = document.getElementById("birthdayNow");
 
     function tick() {
-        const now    = new Date();
+        const now = new Date();
         const isToday = now.getMonth() === 3 && now.getDate() === 19;
 
         if (isToday) {
             timerEl.style.display = "none";
-            bdayEl.style.display  = "block";
+            bdayEl.style.display = "block";
             launchConfetti();
             clearInterval(iv);
             return;
         }
 
-        const diff    = getTarget() - now;
-        const days    = Math.floor(diff / 86400000);
-        const hours   = Math.floor((diff % 86400000) / 3600000);
+        const diff = getTarget() - now;
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
         const minutes = Math.floor((diff % 3600000) / 60000);
         const seconds = Math.floor((diff % 60000) / 1000);
 
-        document.getElementById("days").textContent    = pad(days);
-        document.getElementById("hours").textContent   = pad(hours);
+        document.getElementById("days").textContent = pad(days);
+        document.getElementById("hours").textContent = pad(hours);
         document.getElementById("minutes").textContent = pad(minutes);
         document.getElementById("seconds").textContent = pad(seconds);
     }
@@ -446,10 +446,10 @@ function initCountdown() {
    SURPRISE BUTTON — lock / unlock state
    ============================================================ */
 function initSurpriseLock() {
-    const btn      = document.getElementById("surpriseBtn");
+    const btn = document.getElementById("surpriseBtn");
     const lockInfo = document.getElementById("lockInfo");
     const lockText = document.getElementById("lockCountdownText");
-    const pad      = n => String(n).padStart(2, "0");
+    const pad = n => String(n).padStart(2, "0");
 
     function updateBtn() {
         if (isSurpriseUnlocked()) {
@@ -462,10 +462,10 @@ function initSurpriseLock() {
             lockInfo.style.display = "flex";
 
             const diff = getUnlockTarget() - new Date();
-            const d    = Math.floor(diff / 86400000);
-            const h    = Math.floor((diff % 86400000) / 3600000);
-            const m    = Math.floor((diff % 3600000) / 60000);
-            const s    = Math.floor((diff % 60000) / 1000);
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
             lockText.textContent = d > 0
                 ? `Unlocks in ${d}d ${pad(h)}h ${pad(m)}m ${pad(s)}s`
                 : `Unlocks in ${pad(h)}h ${pad(m)}m ${pad(s)}s`;
@@ -481,7 +481,7 @@ function initSurpriseLock() {
    ============================================================ */
 function initCarousel() {
     const stage = document.getElementById("carouselStage");
-    const dots  = document.getElementById("carouselDots");
+    const dots = document.getElementById("carouselDots");
     let current = 0;
     let autoTimer;
 
@@ -507,7 +507,7 @@ function initCarousel() {
 
     const slides = stage.querySelectorAll(".c-slide");
     const dotEls = dots.querySelectorAll(".dot");
-    const total  = slides.length;
+    const total = slides.length;
 
     function updateView() {
         slides.forEach((s, i) => {
@@ -527,7 +527,7 @@ function initCarousel() {
 
     let tx = 0;
     stage.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
-    stage.addEventListener("touchend",   e => {
+    stage.addEventListener("touchend", e => {
         const dx = tx - e.changedTouches[0].clientX;
         if (Math.abs(dx) > 45) goTo(dx > 0 ? current + 1 : current - 1);
     });
@@ -566,11 +566,11 @@ function initScrollReveal() {
    MUSIC PLAYER
    ============================================================ */
 function initMusic() {
-    const audio   = document.getElementById("bgMusic");
-    const btn     = document.getElementById("musicBtn");
-    const icon    = btn.querySelector(".music-icon");
-    const text    = btn.querySelector(".music-text");
-    let   playing = false;
+    const audio = document.getElementById("bgMusic");
+    const btn = document.getElementById("musicBtn");
+    const icon = btn.querySelector(".music-icon");
+    const text = btn.querySelector(".music-text");
+    let playing = false;
 
     audio.volume = 0.4;
 
@@ -603,7 +603,7 @@ function initMusic() {
 function launchConfetti() {
     const colors = ["#ff6b9d", "#c678dd", "#ff9ff3", "#ffffff", "#ffb3d1", "#ffd6e7"];
     confetti({ particleCount: 140, spread: 100, origin: { y: 0.6 }, colors });
-    setTimeout(() => confetti({ particleCount: 90, angle: 60,  spread: 55, origin: { x: 0 }, colors }), 260);
+    setTimeout(() => confetti({ particleCount: 90, angle: 60, spread: 55, origin: { x: 0 }, colors }), 260);
     setTimeout(() => confetti({ particleCount: 90, angle: 120, spread: 55, origin: { x: 1 }, colors }), 440);
     setTimeout(() => confetti({ particleCount: 60, spread: 80, origin: { y: 0.5 }, colors, scalar: 1.5 }), 620);
 }
@@ -612,7 +612,7 @@ function launchConfetti() {
    TYPING EFFECT
    ============================================================ */
 const LOVE_MESSAGE =
-`My Dearest Love,
+    `My Dearest Love,
 
 On this special day, I want you to know that meeting you was the greatest gift life has ever given me.
 
@@ -624,11 +624,11 @@ Happy Birthday, my everything. May this year bring you every dream your heart ho
 
 Forever yours ❤️`;
 
-let _typingIv   = null;   // active interval handle
+let _typingIv = null;   // active interval handle
 let _typingDone = false;  // has this session finished typing?
 
 function startTyping() {
-    const el     = document.getElementById("sxTyped");
+    const el = document.getElementById("sxTyped");
     const cursor = document.getElementById("sxCursor");
     if (!el) return;
 
@@ -648,7 +648,7 @@ function startTyping() {
     _typingIv = setInterval(() => {
         if (i >= LOVE_MESSAGE.length) {
             clearInterval(_typingIv);
-            _typingIv   = null;
+            _typingIv = null;
             _typingDone = true;
             if (cursor) cursor.style.display = "none";
             return;
@@ -660,11 +660,11 @@ function startTyping() {
 
 function resetTyping() {
     clearInterval(_typingIv);
-    _typingIv   = null;
+    _typingIv = null;
     _typingDone = false;
-    const el     = document.getElementById("sxTyped");
+    const el = document.getElementById("sxTyped");
     const cursor = document.getElementById("sxCursor");
-    if (el)     el.textContent = "";
+    if (el) el.textContent = "";
     if (cursor) cursor.style.display = "inline-block";
 }
 
@@ -674,7 +674,7 @@ function resetTyping() {
 function buildVideoPanel() {
     const playerEl = document.getElementById("sxVideoPlayer");
     const thumbsEl = document.getElementById("sxVideoThumbs");
-    let   activeIdx = -1;
+    let activeIdx = -1;
 
     if (videoData.every(v => !v.src)) {
         // All placeholders
@@ -751,13 +751,13 @@ function buildMemoriesGrid() {
    SURPRISE EXPERIENCE — INIT + OPEN/CLOSE
    ============================================================ */
 function initSurpriseExperience() {
-    const overlay    = document.getElementById("sxOverlay");
+    const overlay = document.getElementById("sxOverlay");
     const surpriseBtn = document.getElementById("surpriseBtn");
-    const closeBtn   = document.getElementById("sxClose");
-    const ctaBtn     = document.getElementById("sxCta");
-    const tabNav     = document.getElementById("sxTabNav");
-    let   sxHeartsInterval = null;
-    let   opened = false;
+    const closeBtn = document.getElementById("sxClose");
+    const ctaBtn = document.getElementById("sxCta");
+    const tabNav = document.getElementById("sxTabNav");
+    let sxHeartsInterval = null;
+    let opened = false;
 
     /* Build static content once */
     buildVideoPanel();
@@ -808,7 +808,7 @@ function initSurpriseExperience() {
         sxHeartsInterval = spawnSxHearts();
 
         // Extra confetti bursts
-        setTimeout(() => confetti({ particleCount: 80, spread: 120, origin: { y: 0.3 }, colors: ["#ff6b9d","#c678dd","#fff"] }), 1500);
+        setTimeout(() => confetti({ particleCount: 80, spread: 120, origin: { y: 0.3 }, colors: ["#ff6b9d", "#c678dd", "#fff"] }), 1500);
     }
 
     function close() {
@@ -823,8 +823,8 @@ function initSurpriseExperience() {
 
     surpriseBtn.addEventListener("click", open);
     closeBtn.addEventListener("click", close);
-    ctaBtn.addEventListener("click",   close);
-    overlay.addEventListener("click",  e => { if (e.target === overlay) close(); });
+    ctaBtn.addEventListener("click", close);
+    overlay.addEventListener("click", e => { if (e.target === overlay) close(); });
     document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
 }
 
@@ -847,7 +847,7 @@ function showToast(title, body) {
     const toast = document.getElementById("gameToast");
     if (!toast) return;
     toast.querySelector("h3").textContent = title;
-    toast.querySelector("p").textContent  = body;
+    toast.querySelector("p").textContent = body;
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 4000);
 }
@@ -856,11 +856,11 @@ function showToast(title, body) {
    MEMORY MATCH GAME
    ============================================================ */
 function initMemoryGame() {
-    const symbols = ["❤️","💕","🌹","💍","🦋","💫","🌸","🎂"];
+    const symbols = ["❤️", "💕", "🌹", "💍", "🦋", "💫", "🌸", "🎂"];
     let cards = [], flipped = [], matched = 0, moves = 0, seconds = 0;
     let canFlip = true, timerIv = null, started = false;
 
-    const grid    = document.getElementById("memGrid");
+    const grid = document.getElementById("memGrid");
     const movesEl = document.getElementById("memMoves");
     const timerEl = document.getElementById("memTimer");
 
@@ -921,7 +921,7 @@ function initMemoryGame() {
     function startTimer() {
         timerIv = setInterval(() => {
             seconds++;
-            timerEl.textContent = `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,"0")}`;
+            timerEl.textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
         }, 1000);
     }
 
@@ -934,20 +934,20 @@ function initMemoryGame() {
    ============================================================ */
 function initSpinWheel() {
     const segments = [
-        { label:"Compliment 💕",    color:"#ff2277", msgs:["Your smile lights up every room you walk into!","You are breathtakingly beautiful, inside and out!","Your laugh is my absolute favorite sound in the universe!"] },
-        { label:"Sweet Dare 🌹",    color:"#9933dd", msgs:["Send your favorite selfie to someone who loves you!","Name 3 things you adore about yourself!","Tell someone you love them right now! 💕"] },
-        { label:"Love Fact 💫",     color:"#dd44aa", msgs:["Couples who laugh together truly last longer!","Your heart literally syncs with someone you love deeply!","Love actually makes time feel magical and different!"] },
-        { label:"Make a Wish 🌸",   color:"#ff5599", msgs:["Close your eyes and make a birthday wish! 🌟","The universe is listening to you right now 💫","Your wish has already been heard ✨"] },
-        { label:"Bonus Love ❤️",    color:"#cc2299", msgs:["You deserve infinite love today and every day!","Someone is thinking of you right now with so much love!","Extra hug delivered straight from the heart 🤗"] },
-        { label:"Birthday Gift 🎁", color:"#ff1166", msgs:["Today is ALL about you — enjoy every magical second!","Every wish you make today is guaranteed to come true!","You deserve the entire world, and then some 🌍"] },
-        { label:"Sweet Kiss 💋",    color:"#aa1188", msgs:["A virtual kiss sent with all of my love 💋","The sweetest kiss is yours today, always 💋","Sealed with love, delivered with my whole heart 💋"] },
-        { label:"Love Quote 💌",    color:"#ee33bb", msgs:['"You are my today and all of my tomorrows."','"In all the world, there is no heart for me like yours."','"I love you more than yesterday, less than tomorrow."'] },
+        { label: "Compliment 💕", color: "#ff2277", msgs: ["Your smile lights up every room you walk into!", "You are breathtakingly beautiful, inside and out!", "Your laugh is my absolute favorite sound in the universe!"] },
+        { label: "Sweet Dare 🌹", color: "#9933dd", msgs: ["Send your favorite selfie to someone who loves you!", "Name 3 things you adore about yourself!", "Tell someone you love them right now! 💕"] },
+        { label: "Love Fact 💫", color: "#dd44aa", msgs: ["Couples who laugh together truly last longer!", "Your heart literally syncs with someone you love deeply!", "Love actually makes time feel magical and different!"] },
+        { label: "Make a Wish 🌸", color: "#ff5599", msgs: ["Close your eyes and make a birthday wish! 🌟", "The universe is listening to you right now 💫", "Your wish has already been heard ✨"] },
+        { label: "Bonus Love ❤️", color: "#cc2299", msgs: ["You deserve infinite love today and every day!", "Someone is thinking of you right now with so much love!", "Extra hug delivered straight from the heart 🤗"] },
+        { label: "Birthday Gift 🎁", color: "#ff1166", msgs: ["Today is ALL about you — enjoy every magical second!", "Every wish you make today is guaranteed to come true!", "You deserve the entire world, and then some 🌍"] },
+        { label: "Sweet Kiss 💋", color: "#aa1188", msgs: ["A virtual kiss sent with all of my love 💋", "The sweetest kiss is yours today, always 💋", "Sealed with love, delivered with my whole heart 💋"] },
+        { label: "Love Quote 💌", color: "#ee33bb", msgs: ['"You are my today and all of my tomorrows."', '"In all the world, there is no heart for me like yours."', '"I love you more than yesterday, less than tomorrow."'] },
     ];
 
-    const canvas  = document.getElementById("wheelCanvas");
-    const ctx     = canvas.getContext("2d");
+    const canvas = document.getElementById("wheelCanvas");
+    const ctx = canvas.getContext("2d");
     const spinBtn = document.getElementById("spinBtn");
-    const resultEl= document.getElementById("wheelResult");
+    const resultEl = document.getElementById("wheelResult");
     const N = segments.length;
     let currentAngle = 0;
     let spinning = false;
@@ -972,8 +972,8 @@ function initSpinWheel() {
             ctx.closePath();
 
             // Gradient fill per segment
-            const gx = cx + Math.cos(start + arc/2) * r * 0.5;
-            const gy = cy + Math.sin(start + arc/2) * r * 0.5;
+            const gx = cx + Math.cos(start + arc / 2) * r * 0.5;
+            const gy = cy + Math.sin(start + arc / 2) * r * 0.5;
             const sg = ctx.createRadialGradient(cx, cy, 0, gx, gy, r);
             sg.addColorStop(0, seg.color + "cc");
             sg.addColorStop(1, seg.color);
@@ -997,7 +997,7 @@ function initSpinWheel() {
         });
 
         // Center circle
-        const cg = ctx.createRadialGradient(cx-4, cy-4, 2, cx, cy, 26);
+        const cg = ctx.createRadialGradient(cx - 4, cy - 4, 2, cx, cy, 26);
         cg.addColorStop(0, "#ff9ff3");
         cg.addColorStop(1, "#c678dd");
         ctx.beginPath();
@@ -1022,9 +1022,9 @@ function initSpinWheel() {
         resultEl.innerHTML = "";
 
         const extra = (Math.random() * 5 + 6) * Math.PI * 2;
-        const dur   = 4200 + Math.random() * 1200;
-        const from  = currentAngle;
-        const t0    = performance.now();
+        const dur = 4200 + Math.random() * 1200;
+        const from = currentAngle;
+        const t0 = performance.now();
 
         function ease(t) { return 1 - Math.pow(1 - t, 4); }
 
@@ -1042,12 +1042,12 @@ function initSpinWheel() {
     });
 
     function showWheelResult() {
-        const arc  = (Math.PI * 2) / N;
+        const arc = (Math.PI * 2) / N;
         // Arrow points up = -π/2; find segment under it
-        const norm = ((-currentAngle % (Math.PI*2)) + Math.PI*2 + Math.PI/2) % (Math.PI*2);
-        const idx  = Math.floor(norm / arc) % N;
-        const seg  = segments[idx];
-        const msg  = seg.msgs[Math.floor(Math.random() * seg.msgs.length)];
+        const norm = ((-currentAngle % (Math.PI * 2)) + Math.PI * 2 + Math.PI / 2) % (Math.PI * 2);
+        const idx = Math.floor(norm / arc) % N;
+        const seg = segments[idx];
+        const msg = seg.msgs[Math.floor(Math.random() * seg.msgs.length)];
 
         resultEl.innerHTML = `
             <div class="wheel-result-card">
@@ -1075,20 +1075,20 @@ function initScratchCard() {
         "My love for you grows bigger than the universe every single day ❤️",
     ];
 
-    const canvas  = document.getElementById("scratchCanvas");
-    const ctx     = canvas.getContext("2d");
-    const fillEl  = document.getElementById("scratchFill");
-    const pctEl   = document.getElementById("scratchPct");
-    const msgEl   = document.getElementById("srMsg");
+    const canvas = document.getElementById("scratchCanvas");
+    const ctx = canvas.getContext("2d");
+    const fillEl = document.getElementById("scratchFill");
+    const pctEl = document.getElementById("scratchPct");
+    const msgEl = document.getElementById("srMsg");
     let isDrawing = false, revealed = false;
 
     function buildCard() {
         revealed = false;
         isDrawing = false;
         fillEl.style.width = "0%";
-        pctEl.textContent  = "0% scratched";
-        canvas.style.display  = "block";
-        canvas.style.opacity  = "1";
+        pctEl.textContent = "0% scratched";
+        canvas.style.display = "block";
+        canvas.style.opacity = "1";
         canvas.style.transition = "none";
         msgEl.textContent = messages[Math.floor(Math.random() * messages.length)];
 
@@ -1096,17 +1096,17 @@ function initScratchCard() {
 
         // Gradient surface
         const g = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        g.addColorStop(0,   "#7b2fa0");
-        g.addColorStop(0.45,"#9b35bb");
+        g.addColorStop(0, "#7b2fa0");
+        g.addColorStop(0.45, "#9b35bb");
         g.addColorStop(0.7, "#c678dd");
-        g.addColorStop(1,   "#7b2fa0");
+        g.addColorStop(1, "#7b2fa0");
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // Subtle grid pattern
         ctx.fillStyle = "rgba(255,255,255,.04)";
         for (let y = 0; y < canvas.height; y += 16) {
-            for (let x = (y/16%2===0?0:8); x < canvas.width; x += 16) {
+            for (let x = (y / 16 % 2 === 0 ? 0 : 8); x < canvas.width; x += 16) {
                 ctx.fillRect(x, y, 8, 8);
             }
         }
@@ -1115,7 +1115,7 @@ function initScratchCard() {
         ctx.fillStyle = "rgba(255,255,255,.15)";
         for (let i = 0; i < 30; i++) {
             ctx.beginPath();
-            ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*2+0.5, 0, Math.PI*2);
+            ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 2 + 0.5, 0, Math.PI * 2);
             ctx.fill();
         }
 
@@ -1124,20 +1124,20 @@ function initScratchCard() {
         ctx.font = "bold 15px Poppins,sans-serif";
         ctx.textAlign = "center";
         ctx.shadowColor = "rgba(0,0,0,.4)";
-        ctx.shadowBlur  = 6;
-        ctx.fillText("✨ Scratch Here ✨", canvas.width/2, canvas.height/2 - 10);
+        ctx.shadowBlur = 6;
+        ctx.fillText("✨ Scratch Here ✨", canvas.width / 2, canvas.height / 2 - 10);
         ctx.font = "11px Poppins,sans-serif";
         ctx.fillStyle = "rgba(255,255,255,.4)";
         ctx.shadowBlur = 0;
-        ctx.fillText("Use finger or mouse", canvas.width/2, canvas.height/2 + 14);
+        ctx.fillText("Use finger or mouse", canvas.width / 2, canvas.height / 2 + 14);
     }
 
     function pos(e) {
         const r = canvas.getBoundingClientRect();
-        const sx = canvas.width  / r.width;
+        const sx = canvas.width / r.width;
         const sy = canvas.height / r.height;
         const src = e.touches ? e.touches[0] : e;
-        return { x: (src.clientX - r.left)*sx, y: (src.clientY - r.top)*sy };
+        return { x: (src.clientX - r.left) * sx, y: (src.clientY - r.top) * sy };
     }
 
     function scratch(e) {
@@ -1146,11 +1146,11 @@ function initScratchCard() {
         const { x, y } = pos(e);
         ctx.globalCompositeOperation = "destination-out";
         ctx.beginPath();
-        ctx.arc(x, y, 24, 0, Math.PI*2);
+        ctx.arc(x, y, 24, 0, Math.PI * 2);
         ctx.fill();
         // Small trailing circles for smooth feel
         ctx.beginPath();
-        ctx.arc(x, y, 14, 0, Math.PI*2);
+        ctx.arc(x, y, 14, 0, Math.PI * 2);
         ctx.fill();
         ctx.globalCompositeOperation = "source-over";
         updatePct();
@@ -1163,7 +1163,7 @@ function initScratchCard() {
         for (let i = 3; i < data.length; i += 16) { if (data[i] < 128) transparent++; total++; }
         const pct = Math.round(transparent / total * 100);
         fillEl.style.width = Math.min(pct, 100) + "%";
-        pctEl.textContent  = pct + "% scratched";
+        pctEl.textContent = pct + "% scratched";
 
         if (pct >= 62 && !revealed) {
             revealed = true;
@@ -1172,20 +1172,20 @@ function initScratchCard() {
                 canvas.style.opacity = "0";
                 setTimeout(() => { canvas.style.display = "none"; }, 700);
                 fillEl.style.width = "100%";
-                pctEl.textContent  = "100% revealed! 🎉";
+                pctEl.textContent = "100% revealed! 🎉";
                 launchConfetti();
                 showToast("💌 Revealed!", "Your hidden message is here!");
             }, 180);
         }
     }
 
-    canvas.addEventListener("mousedown",  e => { isDrawing = true; scratch(e); });
-    canvas.addEventListener("mousemove",  scratch);
-    canvas.addEventListener("mouseup",    () => { isDrawing = false; });
+    canvas.addEventListener("mousedown", e => { isDrawing = true; scratch(e); });
+    canvas.addEventListener("mousemove", scratch);
+    canvas.addEventListener("mouseup", () => { isDrawing = false; });
     canvas.addEventListener("mouseleave", () => { isDrawing = false; });
     canvas.addEventListener("touchstart", e => { isDrawing = true; scratch(e); }, { passive: false });
-    canvas.addEventListener("touchmove",  e => scratch(e), { passive: false });
-    canvas.addEventListener("touchend",   () => { isDrawing = false; });
+    canvas.addEventListener("touchmove", e => scratch(e), { passive: false });
+    canvas.addEventListener("touchend", () => { isDrawing = false; });
 
     document.getElementById("scratchNew").addEventListener("click", buildCard);
     buildCard();
@@ -1223,7 +1223,7 @@ function initSectionLocks() {
     } else {
         // Seed sparkle emojis into each veil-sparks div
         document.querySelectorAll(".veil-sparks").forEach(sparks => {
-            const emojis = ["💕","🌸","✨","💫","❤️","🦋"];
+            const emojis = ["💕", "🌸", "✨", "💫", "❤️", "🦋"];
             for (let i = 0; i < 4; i++) {
                 const s = document.createElement("span");
                 s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -1250,7 +1250,7 @@ function initCountdownCanvas() {
     const ctx = canvas.getContext("2d");
 
     function resize() {
-        canvas.width  = canvas.offsetWidth;
+        canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
     }
     resize();
@@ -1264,7 +1264,7 @@ function initCountdownCanvas() {
         vx: (Math.random() - 0.5) * 0.35,
         vy: -(Math.random() * 0.5 + 0.2),
         opacity: Math.random() * 0.6 + 0.2,
-        color: ["#ff6b9d","#c678dd","#ff9ff3","#ffffff"][Math.floor(Math.random()*4)],
+        color: ["#ff6b9d", "#c678dd", "#ff9ff3", "#ffffff"][Math.floor(Math.random() * 4)],
     }));
 
     // Shooting stars
@@ -1297,7 +1297,7 @@ function initCountdownCanvas() {
             ctx.globalAlpha = p.opacity * (0.7 + 0.3 * Math.sin(frame * 0.02 + p.x));
             ctx.fill();
             p.x += p.vx; p.y += p.vy;
-            if (p.y < -5)              { p.y = canvas.height + 5; p.x = Math.random() * canvas.width; }
+            if (p.y < -5) { p.y = canvas.height + 5; p.x = Math.random() * canvas.width; }
             if (p.x < -5 || p.x > canvas.width + 5) p.vx *= -1;
         });
 
@@ -1372,8 +1372,8 @@ function initSxBgCanvas() {
     if (typeof THREE === "undefined") { initCanvas2DParticles("sxBgCanvas", 150); return; }
 
     try {
-        const scene    = new THREE.Scene();
-        const camera   = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
         camera.position.z = 50;
 
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
@@ -1382,20 +1382,20 @@ function initSxBgCanvas() {
 
         // Star field
         const COUNT = 200;
-        const pos   = new Float32Array(COUNT * 3);
-        const col   = new Float32Array(COUNT * 3);
+        const pos = new Float32Array(COUNT * 3);
+        const col = new Float32Array(COUNT * 3);
         const palette = [new THREE.Color(0xff6b9d), new THREE.Color(0xc678dd), new THREE.Color(0xff9ff3), new THREE.Color(0xffffff)];
 
         for (let i = 0; i < COUNT; i++) {
-            pos[i*3]   = (Math.random()-.5)*180;
-            pos[i*3+1] = (Math.random()-.5)*180;
-            pos[i*3+2] = (Math.random()-.5)*80;
-            const c = palette[Math.floor(Math.random()*palette.length)];
-            col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
+            pos[i * 3] = (Math.random() - .5) * 180;
+            pos[i * 3 + 1] = (Math.random() - .5) * 180;
+            pos[i * 3 + 2] = (Math.random() - .5) * 80;
+            const c = palette[Math.floor(Math.random() * palette.length)];
+            col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
         }
         const starGeo = new THREE.BufferGeometry();
         starGeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-        starGeo.setAttribute("color",    new THREE.BufferAttribute(col, 3));
+        starGeo.setAttribute("color", new THREE.BufferAttribute(col, 3));
         const starPoints = new THREE.Points(starGeo, new THREE.PointsMaterial({
             size: 0.9, vertexColors: true, transparent: true, opacity: 0.6,
             blending: THREE.AdditiveBlending, depthWrite: false,
@@ -1416,7 +1416,7 @@ function initSxBgCanvas() {
             renderer.render(scene, camera);
         }
         animateBg();
-    } catch(e) {
+    } catch (e) {
         console.warn("WebGL unavailable for sx background:", e.message);
         initCanvas2DParticles("sxBgCanvas", 150);
     }
@@ -1426,25 +1426,34 @@ function initSxBgCanvas() {
    BOOT
    ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
-    initHeroThreeJS();
-    initFloatingHearts();
-    initCountdown();
-    initCountdownCanvas();
-    initHypeMessages();
-    initSurpriseLock();
-    initSectionLocks();
-    initCarousel();
-    initTimeline();
-    initScrollReveal();
-    initMusic();
-    initSurpriseExperience();
-    initSxBgCanvas();
-    initNavbar();
-    // Games — only init if unlocked (section is also visually locked via lockable/lock-veil)
+    /* Helper: run each init safely so one failure doesn't block the rest */
+    function safe(fn, label) {
+        try { fn(); } catch (e) { console.warn("[BOOT]", label || fn.name, "failed:", e.message); }
+    }
+
+    /* ── CRITICAL: unlock sections first so content is always visible on April 19 ── */
+    safe(initSectionLocks, "initSectionLocks");
+    safe(initSurpriseLock, "initSurpriseLock");
+    safe(initMusic, "initMusic");
+
+    /* ── Visual / cosmetic inits ── */
+    safe(initHeroThreeJS, "initHeroThreeJS");
+    safe(initFloatingHearts, "initFloatingHearts");
+    safe(initCountdown, "initCountdown");
+    safe(initCountdownCanvas, "initCountdownCanvas");
+    safe(initHypeMessages, "initHypeMessages");
+    safe(initCarousel, "initCarousel");
+    safe(initTimeline, "initTimeline");
+    safe(initScrollReveal, "initScrollReveal");
+    safe(initSurpriseExperience, "initSurpriseExperience");
+    safe(initSxBgCanvas, "initSxBgCanvas");
+    safe(initNavbar, "initNavbar");
+
+    /* ── Games — only init if unlocked ── */
     if (isSurpriseUnlocked()) {
-        initGameTabs();
-        initMemoryGame();
-        initSpinWheel();
-        initScratchCard();
+        safe(initGameTabs, "initGameTabs");
+        safe(initMemoryGame, "initMemoryGame");
+        safe(initSpinWheel, "initSpinWheel");
+        safe(initScratchCard, "initScratchCard");
     }
 });
